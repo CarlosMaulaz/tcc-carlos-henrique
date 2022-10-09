@@ -208,4 +208,15 @@ print(type(a))
 print(type(b))
 print(type(c))
 
+a = "Hello, World"
 
+print(a[0])
+
+for x in "banana":
+  print(x)
+
+txt = "The best things in life are free!"
+print("free" in txt)
+
+b = "Hello, World!"
+print(b[2:5])

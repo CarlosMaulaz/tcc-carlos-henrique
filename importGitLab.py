@@ -1,4 +1,7 @@
 import gitlab
+
+###################################### Acesso ao GitLab ##############################################################
+
 '''
 # anonymous read-only access for public resources (GitLab.com)
 gl = gitlab.Gitlab()
@@ -28,4 +31,6 @@ gl = gitlab.Gitlab('https://gitlab.example.com', user_agent='my-package/1.0.0')
 # make an API request to create the gl.user object. This is not required but may be useful
 # to validate your token authentication. Note that this will not work with job tokens.
 gl.auth()
+
+#######################################################################################################################
 
