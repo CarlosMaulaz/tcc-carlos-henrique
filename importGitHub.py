@@ -1,9 +1,10 @@
+import requests
 from github import Github
 
 # First create a Github instance:
 
 # using an access token
-g = Github("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")
+g = Github("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")
 
 
 # Then play with your Github objects:
@@ -63,3 +64,11 @@ print(contributors)
 # Definir função que pega todos os contribuidores de um projeto
 
 
+def getContributors():
+    linkContributors = repo.contributors_url
+    print("Função getContributors")
+    print(repo.get_contributors())
+    resposta = requests.get(linkContributors).json()
+    print(resposta[0])
+
+getContributors()
