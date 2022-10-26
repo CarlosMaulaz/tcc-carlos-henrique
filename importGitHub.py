@@ -33,8 +33,8 @@ class Contributor:
 Funções para a extração de dados
 
 '''
-# A função recebe um URL api.* de um user do gitHub e retorna a URL do repositório
 
+# A função recebe um URL api.* de um user do gitHub e retorna a URL do repositório desse User
 
 def get_repos_url_from_user(user_url):
     resposta = requests.get(user_url).json()
@@ -50,7 +50,7 @@ def get_contributors_url_from_repos(repos_url):
         url.append(repositorios["contributors_url"])
     return url
 
-
+# Recebe uma Array de url's de contribuidores dos repositórios e retorna uma lista de objetos Contruibutor
 def get_contributors(url_contributors):
     contributors_list = []
     for url_contributor in url_contributors:
@@ -59,9 +59,9 @@ def get_contributors(url_contributors):
             id = resposta_contributors['id']
             login = resposta_contributors['login']
             contributions = resposta_contributors['contributions']
-            print(id)
-            print(login)
-            print(contributions)
+            # print(id)
+            # print(login)
+            # print(contributions)
             contributor_aux = Contributor(id, login, contributions)
             # Lógica para adicionar apenas novos IDs
             if contributor_aux not in contributors_list:
@@ -75,27 +75,3 @@ def get_contributors(url_contributors):
     return contributors_list
 
 
-'''    
-    resposta = requests.get(url_contributors).json()
-    print("Os contribuidores do repositório são:")
-    for respostaContributors in resposta:
-        id = respostaContributors['id']
-        login = respostaContributors['login']
-        print(login)
-        print(id)
-'''
-
-repos = get_repos_url_from_user(urlUserPaulo)
-
-print(repos)
-
-urlsContributors = get_contributors_url_from_repos(repos)
-
-contributors = get_contributors(urlsContributors)
-'''
-for contribuidores in contributors:
-    print(contribuidores.login)
-'''
-p1 = Contributor(1234, "carlosmaulaz", 23)
-contributors.append(p1)
-print(contributors[0].id)
