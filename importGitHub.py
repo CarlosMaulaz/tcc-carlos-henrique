@@ -1,4 +1,6 @@
 import requests
+import pathlib
+import os
 from github import Github
 
 # Token de acesso para autenticação de acesso à API
@@ -74,4 +76,22 @@ def get_contributors(url_contributors):
             '''
     return contributors_list
 
+def save_csv_contributors_list(contributors_list):
+    f = open(os.path.join(pathlib.Path().resolve(), "files\\contributors_list.csv"), "w")
+    f.write("ID")
+    f.write(";")
+    f.write("login")
+    f.write(";")
+    f.write("contribuicao")
+    f.write("\n")
+
+    for contribuidores in contributors_list:
+        f.write(str(contribuidores.id))
+        f.write(";")
+        f.write(contribuidores.login)
+        f.write(";")
+        f.write(str(contribuidores.contributions))
+        f.write("\n")
+
+    f.close()
 
