@@ -1,6 +1,8 @@
 import importGitHub
 import importSonar
 
+'''
+
 # ----------- Obtendo dados do SonarCloud --------------------
 
 # Keys de projetos
@@ -22,8 +24,10 @@ importSonar.save_csv_rules_list(rules_list)
 importSonar.save_csv_users_list(users_list)
 
 
-# ------------- Obtendo dados no GitHub ---------------------
+'''
 
+# ------------- Obtendo dados no GitHub ---------------------
+'''
 # ------------- Lista de Users para teste ----------------------
 
 urlUserLeds = 'https://api.github.com/users/leds'
@@ -37,5 +41,5 @@ contributors_url = importGitHub.get_contributors_url_from_repos(repository_url)
 contributors = importGitHub.get_contributors(contributors_url)
 importGitHub.save_csv_contributors_list(contributors)
 
-
+'''
 

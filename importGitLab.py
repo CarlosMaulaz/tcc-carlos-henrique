@@ -1,4 +1,5 @@
 import gitlab
+import requests
 
 ###################################### Acesso ao GitLab ##############################################################
 
@@ -14,7 +15,7 @@ gl = gitlab.Gitlab(private_token='glpat-A6cWK7xiqmBHnyxrv3hK')
 '''
 
 # private token or personal token authentication (self-hosted GitLab instance)
-gl = gitlab.Gitlab(url='https://gitlab.carlosmaulaz.com', private_token='glpat-A6cWK7xiqmBHnyxrv3hK')
+gl = gitlab.Gitlab(private_token='glpat-xoqAg_ka95WfnnP7b3_N')
 '''
 # oauth token authentication
 gl = gitlab.Gitlab('https://gitlab.example.com', oauth_token='my_long_token_here')
@@ -31,6 +32,24 @@ gl = gitlab.Gitlab('https://gitlab.example.com', user_agent='my-package/1.0.0')
 # make an API request to create the gl.user object. This is not required but may be useful
 # to validate your token authentication. Note that this will not work with job tokens.
 gl.auth()
+
+base_api_url = 'https://gitlab.com/api/v4/'
+user_id1 = 'miikanissi'
+user_id2 = 'carlosmaulaz'
+
+
+response = requests.get(base_api_url + '/users/' + user_id2 + '/projects').json()
+
+list_projects = []
+
+for r in response:
+    id = r['id']
+    list_projects.append(id)
+    print(id)
+
+
+# class Projects:
+#     def __init__(self, id, ):
 
 #######################################################################################################################
 
