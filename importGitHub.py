@@ -7,9 +7,6 @@ from github import Github
 g = Github("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")
 github_api_url = 'https://api.github.com'
 
-
-
-
 '''
 
 Classes 
@@ -257,13 +254,3 @@ def get_tree_files (commit_tree_sha, tree_url):
 
 
 
-repositorios = get_repos('CarlosMaulaz')
-contribuidores = get_contributors(repositorios)
-# repositorios = [repositorios[0], repositorios[1]]
-commits = get_commit(repositorios)
-files_do_commit = get_commit_files(commits)
-
-save_csv_repository_list(repositorios)
-save_csv_contributors_list(contribuidores)
-save_csv_commit_list(commits)
-save_csv_file_list(files_do_commit)

@@ -8,19 +8,19 @@ sonar = SonarCloudClient(sonarcloud_url="https://sonarcloud.io", token='1bda9a03
 
 
 class Issue:
-    def __init__(self, key, rule, severity, component, project, hash, status, effort, debt, creation_date, update_date, type, resolution, close_date, assignee):
+    def __init__(self, key, rule, severity, component, project, hash_issue, status, effort, debt, creation_date, update_date, type_issue, resolution, close_date, assignee):
         self.key = key
         self.rule = rule
         self.severity = severity
         self.component = component
         self.project = project
-        self.hash = hash
+        self.hash = hash_issue
         self.status = status
         self.effort = effort
         self.debt = debt
         self.creation_date = creation_date
         self.update_date = update_date
-        self.type = type
+        self.type = type_issue
         self.resolution = resolution
         self.close_date = close_date
         self.assignee = assignee
@@ -55,26 +55,25 @@ def get_project_issues(project_id):
     issue_list = []
     url = 'https://sonarcloud.io/api/issues/search'
 
-    for x in range(1,3):
-        query = {'additionalFields': '_all', 'componentKeys': project_id, 'p':x, 'ps': 500}
+    for x in range(1, 3):
+        query = {'additionalFields': '_all', 'componentKeys': project_id, 'p': x, 'ps': 500}
         r = requests.get(url, params=query)
         issues_json = r.json()
-        with open(os.path.join(pathlib.Path().resolve(), 'files\\data'+ str(x) +'.json'), 'w') as f:
+        with open(os.path.join(pathlib.Path().resolve(), 'files\\data' + str(x) + '.json'), 'w') as f:
             json.dump(issues_json, f)
-        print(issues_json)
         for issues in issues_json['issues']:
             key = issues['key']
             rule = issues['rule']
             severity = issues['severity']
             component = issues['component']
             project = issues['project']
-            hash = issues['hash']
+            hash_issue = issues['hash']
             status = issues['status']
             effort = issues['effort']
             debt = issues['debt']
             creation_date = issues['creationDate']
             update_date = issues['updateDate']
-            type = issues['type']
+            type_issue = issues['type']
             try:
                 resolution = issues['resolution']
             except KeyError:
@@ -88,7 +87,7 @@ def get_project_issues(project_id):
             except KeyError:
                 assignee = ""
 
-            issue_list.append(Issue(key, rule, severity, component, project, hash, status, effort, debt, creation_date, update_date, type, resolution, close_date, assignee))
+            issue_list.append(Issue(key, rule, severity, component, project, hash_issue, status, effort, debt, creation_date, update_date, type_issue, resolution, close_date, assignee))
 
     return issue_list
 
@@ -97,8 +96,8 @@ def get_project_components(project_id):
     component_list = []
     url = 'https://sonarcloud.io/api/issues/search'
 
-    for x in range(1,3):
-        query = {'additionalFields': '_all', 'componentKeys': project_id, 'p':x, 'ps': 500}
+    for x in range(1, 3):
+        query = {'additionalFields': '_all', 'componentKeys': project_id, 'p': x, 'ps': 500}
         r = requests.get(url, params=query)
         issues_json = r.json()
         for components in issues_json['components']:
@@ -135,6 +134,7 @@ def get_project_rules(project_id):
 
     return rules_list
 
+
 def get_project_users(project_id):
     users_list = []
     url = 'https://sonarcloud.io/api/issues/search'
@@ -156,9 +156,8 @@ def get_project_users(project_id):
     return users_list
 
 
-
 def save_csv_issue_list(issue_list):
-    f = open(os.path.join(pathlib.Path().resolve(), "files\\issue_list.csv"), "w")
+    f = open(os.path.join(pathlib.Path().resolve(), "files\\sonar_issue_list.csv"), "w")
     f.write("key")
     f.write(";")
     f.write("rule")
@@ -224,7 +223,7 @@ def save_csv_issue_list(issue_list):
 
 
 def save_csv_component_list(component_list):
-    f = open(os.path.join(pathlib.Path().resolve(), "files\\component_list.csv"), "w")
+    f = open(os.path.join(pathlib.Path().resolve(), "files\\sonar_component_list.csv"), "w")
     f.write("organization")
     f.write(";")
     f.write("key")
@@ -254,7 +253,7 @@ def save_csv_component_list(component_list):
 
 
 def save_csv_rules_list(rules_list):
-    f = open(os.path.join(pathlib.Path().resolve(), "files\\rules_list.csv"), "w")
+    f = open(os.path.join(pathlib.Path().resolve(), "files\\sonar_rules_list.csv"), "w")
     f.write("key")
     f.write(";")
     f.write("name")
@@ -276,7 +275,7 @@ def save_csv_rules_list(rules_list):
 
 
 def save_csv_users_list(users_list):
-    f = open(os.path.join(pathlib.Path().resolve(), "files\\users_list.csv"), "w")
+    f = open(os.path.join(pathlib.Path().resolve(), "files\\sonar_users_list.csv"), "w")
     f.write("login")
     f.write(";")
     f.write("name")
@@ -292,6 +291,7 @@ def save_csv_users_list(users_list):
         f.write("\n")
     f.close()
 
+
 def get_issues_changelog(issue_list):
     url = 'https://sonarcloud.io/api/issues/changelog'
     for issue in issue_list:
@@ -304,8 +304,8 @@ def get_issues_changelog(issue_list):
 
 def get_issue_authors(project_id):
     url = 'https://sonarcloud.io/api/issues/authors'
-    for x in range(1,3):
-        query = {'additionalFields': '_all', 'componentKeys': project_id, 'p':x, 'ps': 500}
+    for x in range(1, 3):
+        query = {'additionalFields': '_all', 'componentKeys': project_id, 'p': x, 'ps': 500}
         r = requests.get(url, params=query)
         issues_json = r.json()
         print(issues_json)
