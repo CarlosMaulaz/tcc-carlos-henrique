@@ -3,6 +3,7 @@ import pathlib
 import os
 from github import Github
 
+#teste commit
 # Token de acesso para autenticação de acesso à API
 g = Github("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")
 github_api_url = 'https://api.github.com'
